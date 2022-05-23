@@ -14,7 +14,7 @@ A brief explanation of the API feature or endpoint.
 	> These variables should be passed as `plain string`
 	- name: `required`
 	- username: `required`, `min=6`
-	- email: `required`, `valid email`
+	- email: `required`
 	- password: `required`, `min=8`
 
 - **✉ Data Example**
@@ -35,21 +35,17 @@ A brief explanation of the API feature or endpoint.
 	- **✉ Content Example**:
 		```json
 		{
-			"error": true,
+			"status": 400,
 			"message": "There is an error related to the form. Please check carefully.",
-			"data": {
-				"username": "validation error message or an array to list the error occurred",
-				"password": "validation error message or an array to list the error occurred"
-			}
 		}
 		```
-- **❓ Condition**: *If the username has been used.*
-	- **🔢 Code**: `404 NOT FOUND`
+- **❓ Condition**: *If the email has been used.*
+	- **🔢 Code**: `500 NOT FOUND`
 	- **✉ Content Example**:
 		```json
 		{
-			"error": true,
-			"message": "The username you choose has been used. Please try another one."
+			"error": 500,
+			"message": "Email has been used"
 		}
 		```
 
@@ -59,10 +55,7 @@ A brief explanation of the API feature or endpoint.
 	- **✉ Content Example**:
 		```json
 		{
-			"error": false,
+			"status": 201,
 			"message": "You've created a new account.",
-			"data": {
-				"username": "ryuzakir"
-			}
 		}
 		```
