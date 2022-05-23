@@ -2,7 +2,7 @@
 
 An endpoint to recover user account by entering the username or email of the user.
 
-- **🌏 URL**: `/login/recover`
+- **🌏 URL**: `/api/sys-reset-psw/`
 - ~~**📋 URL Parameters**: -~~
 - **🛤️ Method**: `POST`
 - **🔐 Auth required**: `NO`
@@ -11,28 +11,43 @@ An endpoint to recover user account by entering the username or email of the use
 ## 📤 Request(s)
 
 - **📋 Data Constraint**
-  - username-or-email: `required`, `min=6`
+  - email: `required`
     > - this variable should be a `plain text`.
-    > - the api can define which email or username by checking the input as a valid email address. Do this with form validation.
+    > - the api can define which email by checking the input as a valid email address and email has available on our database. Do this with form validation.
 
 
 - **✉ Data Example**
   ```json
   {
-    "username-or-email": "ryuzakir",
+    "email": "ryuzakir@gmail.com",
+    "password": "djangorest",
+    "confirm": "djangorest"
   }
   ```
 
 ## 📥 Response(s)
 
 ### ❌ Error Response(s)
-- **❓ Condition**: *If the filed doesn't meet the data constraints (Validation Error).*
+- **❓ Condition**: *If the filed password and confirm password not same or (Validation Error).*
   - **🔢 Code**: `400 BAD REQUEST`
   - **✉ Content Example**:
     ```json
     {
-      "error": true,
-      "message": "validation error message or an array to list the error occurred.",
+      "status": 400,
+      "message": "Password must be same with confirm field" or "Please complete field on form",
+    }
+    ```
+
+## 📥 Response(s)
+
+### ❌ Error Response(s)
+- **❓ Condition**: *If the email isn't available on our database*
+  - **🔢 Code**: `404 NOT FOUND`
+  - **✉ Content Example**:
+    ```json
+    {
+      "status": 404,
+      "message": "Email isn't available on our database",
     }
     ```
 
@@ -42,7 +57,7 @@ An endpoint to recover user account by entering the username or email of the use
 	- **✉ Content Example**:
 		```json
 		{
-			"error": false,
-			"message": "We will send you an email that contains an OTP if there is any account related.",
+			"status": 201,
+			"message": "We sent email to you. Please check your inbox",
 		}
 		```
