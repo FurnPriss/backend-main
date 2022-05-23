@@ -44,7 +44,7 @@ A brief explanation of the API feature or endpoint.
 	- **✉ Content Example**:
 		```json
 		{
-			"error": 500,
+			"status": 500,
 			"message": "Email has been used"
 		}
 		```
