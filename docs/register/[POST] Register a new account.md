@@ -2,7 +2,7 @@
 
 A brief explanation of the API feature or endpoint.
 
-- **🌏 URL**: `/register`
+- **🌏 URL**: `/api/sys-regis/`
 - ~~**📋 URL Parameters**: -~~
 - **🛤️ Method**: `POST`
 - **🔐 Auth required**: `NO`
