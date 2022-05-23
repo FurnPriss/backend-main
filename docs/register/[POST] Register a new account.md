@@ -50,7 +50,7 @@ A brief explanation of the API feature or endpoint.
 		```
 
 ### ✅ Success Response(s)
-- **❓ Condition**: *If there is no validation error and the username is available.*
+- **❓ Condition**: *If there is no validation error and the email is available.*
 	- **🔢 Code**: `201 CREATED`
 	- **✉ Content Example**:
 		```json
