@@ -1,5 +1,6 @@
 from rest_framework.response import Response 
 from rest_framework import status
+from datetime import *
 
 def response_success_ok(stat, msg):
     return Response(
@@ -9,6 +10,18 @@ def response_success_ok(stat, msg):
         },
         status=status.HTTP_201_CREATED
     )
+
+def set_cookie(stat, msg, key, value):
+    age = 365*24*60*60
+    response = Response(
+        {
+            'status':stat,
+            'message': msg
+        },
+        status=status.HTTP_201_CREATED
+    )
+    response.set_cookie(key=key, value=value, httponly=False, expires=datetime.now() + timedelta(seconds=age), max_age=age)
+    return response
 
 def response_bad_request(stat, msg):
     return Response(

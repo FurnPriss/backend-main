@@ -1,13 +1,16 @@
 import pymysql 
+from dotenv import load_dotenv
+import os
+load_dotenv(dotenv_path='./.env')
 
 cursor = db = None 
 
 class trvStore:
     def __init__(self):
-        self.user = 'root'
-        self.password = ''
-        self.database = 'trvStore'
-        self.host = 'localhost'
+        self.user = os.getenv('NAME')
+        self.password = os.getenv('PASSWORD')
+        self.database = os.getenv('DATABASE')
+        self.host = os.getenv('HOST')
 
     def openDB(self):
         global db, cursor
@@ -48,3 +51,18 @@ class trvStore:
         )
         fetch = cursor.fetchone()
         return fetch
+    
+    def insert_codeV(self, data):
+        global db, cursor
+        self.openDB() 
+        cursor.execute(
+            f"""
+                INSERT INTO forgetted_password_tokenconfirm (
+                    token, created, user_id_id
+                ) values (
+                    '{data[0]}', '{data[1]}', '{data[2]}'
+                )
+            """
+        )
+        db.commit()
+        self.closeDB()
