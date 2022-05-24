@@ -7,11 +7,13 @@ The template used in this docs are [docs-api](https://github.com/ryumada/docs-re
 F you still confused with the structure of this repository. You can see the structure of the docs below. I will update this structure every time I add new documentation.
 <pre>
 .
-└── <b>docs</b>
+└── docs
+    ├── <b>accounts</b>
+    │   └── [PUT] Reset Password.md
     ├── <b>login</b>
     │   ├── [POST] Login to the account.md
-    │   └── <b>recover</b>
-    │       └── [POST] Forget password.md
+    │   └── <b>recovery</b>
+    │       └── [POST] Recover My Account.md
     └── <b>register</b>
         └── [POST] Register a new account.md
 </pre>
