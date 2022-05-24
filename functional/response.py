@@ -23,6 +23,17 @@ def set_cookie(stat, msg, key, value):
     response.set_cookie(key=key, value=value, httponly=False, expires=datetime.now() + timedelta(seconds=age), max_age=age)
     return response
 
+def delete_cookie(stat, msg, key):
+    response = Response(
+        {
+            'status':stat,
+            'message': msg
+        },
+        status=status.HTTP_201_CREATED
+    )
+    response.delete_cookie(key)
+    return response
+
 def response_bad_request(stat, msg):
     return Response(
         {

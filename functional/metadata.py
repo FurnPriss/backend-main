@@ -58,10 +58,54 @@ class trvStore:
         cursor.execute(
             f"""
                 INSERT INTO forgetted_password_tokenconfirm (
-                    token, created, user_id_id
+                    token, created, user_id_id, confirm
                 ) values (
-                    '{data[0]}', '{data[1]}', '{data[2]}'
+                    '{data[0]}', '{data[1]}', '{data[2]}', 'N'
                 )
+            """
+        )
+        db.commit()
+        self.closeDB()
+    
+    def search_validation_code(self, token):
+        global db, cursor 
+        self.openDB()
+        cursor.execute(
+            f"""
+                SELECT * FROM forgetted_password_tokenconfirm WHERE token='{token}'
+            """
+        )
+        fetch = cursor.fetchone()
+        return fetch
+    
+    def update_table_token(self, data):
+        global db, cursor
+        self.openDB() 
+        cursor.execute(
+            f"""
+                UPDATE 
+                    forgetted_password_tokenconfirm 
+                SET 
+                    confirm='Y', 
+                    when_confirm='{data[0]}'
+                WHERE 
+                    token='{data[1]}'
+            """
+        )
+        db.commit()
+        self.closeDB()
+    
+    def update_password(self, data):
+        global db, cursor
+        self.openDB() 
+        cursor.execute(
+            f"""
+                UPDATE 
+                    register_enduser
+                SET  
+                    password='{data[0]}'
+                WHERE 
+                    id='{data[1]}'
             """
         )
         db.commit()

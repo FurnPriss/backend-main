@@ -24,17 +24,14 @@ class resetPassword(APIView):
         obj = trvStore()
         checking_email = obj.email_exist(data["email"])
 
-        pattern = r'\b[A-Za-z0-9._%+-]+@gmail.com\b'
-        if not re.fullmatch(pattern, data["email"]):
-            return response_bad_request(400, "Email's pattern should '@gmail.com'")
-
         if data["password"] != data["confirm_password"]:
             return response_bad_request(400, "Password must be same with confirm field")
         
-        if checking_email is None:
-            return response_not_found(404, "Email isn't available on our database")
-        
         if parser.is_valid():
+
+            if checking_email is None:
+                return response_not_found(404, "Email isn't available on our database")
+
             row = [random,datetime.now(),checking_email['id']]
             obj.insert_codeV(row)
             send_mail(subject, msg, os.getenv("EMAIL"),[checking_email["email"]], fail_silently=False)

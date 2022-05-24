@@ -1,4 +1,3 @@
-from wsgiref.validate import validator
 from rest_framework import serializers
 from register.models import EndUser
 
