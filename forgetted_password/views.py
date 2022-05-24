@@ -1,11 +1,13 @@
 from rest_framework.views import APIView
 from functional import response_bad_request, response_not_found, set_cookie, trvStore
 from .serializers import ResetPassword
-from functional import trvStore
+from dotenv import load_dotenv
 from django.core.mail import send_mail
 import shortuuid
 from datetime import *
+import os, re
 
+load_dotenv(dotenv_path='./.env')
 # Create your views here.
 class resetPassword(APIView):
     def post(self, request):
@@ -22,6 +24,10 @@ class resetPassword(APIView):
         obj = trvStore()
         checking_email = obj.email_exist(data["email"])
 
+        pattern = r'\b[A-Za-z0-9._%+-]+@gmail.com\b'
+        if not re.fullmatch(pattern, data["email"]):
+            return response_bad_request(400, "Email's pattern should '@gmail.com'")
+
         if data["password"] != data["confirm_password"]:
             return response_bad_request(400, "Password must be same with confirm field")
         
@@ -31,7 +37,7 @@ class resetPassword(APIView):
         if parser.is_valid():
             row = [random,datetime.now(),checking_email['id']]
             obj.insert_codeV(row)
-            send_mail(subject, msg, 'akhmadfaizal13@gmail.com',[checking_email["email"]], fail_silently=False)
+            send_mail(subject, msg, os.getenv("EMAIL"),[checking_email["email"]], fail_silently=False)
             return set_cookie(201, "We sent email to you. Please check your inbox", "password", data["password"])
         
         return response_bad_request(400, "Please complete field on form")

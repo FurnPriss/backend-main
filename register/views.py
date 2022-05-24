@@ -1,6 +1,7 @@
 from functional import response_bad_request, response_internal_server, response_success_ok, trvStore
 from rest_framework.views import APIView
 from .serializers import UsersForm
+import re
 from passlib.hash import sha256_crypt
 
 # Create your views here.
@@ -15,8 +16,9 @@ class APIRegister(APIView):
         obj = trvStore()
         parser = UsersForm(data=data)
 
-        if len(request.data["password"]) < 8 or len(request.data["username"]) < 6:
-            return response_bad_request(400, "There is an error related to the form. Please check carefully")
+        pattern = r'\b[A-Za-z0-9._%+-]+@gmail.com\b'
+        if not re.fullmatch(pattern, data["email"]):
+            return response_bad_request(400, "Email's pattern should '@gmail.com'")
 
         if parser.is_valid():
             query = obj.email_exist(data['email'])
@@ -27,4 +29,4 @@ class APIRegister(APIView):
 
             return response_internal_server(500, 'Email has been used')
 
-        return response_bad_request(400, 'Please fill your data to each of fields')
+        return response_bad_request(400, "Username and Password must be have 6 and 8 lenght character")
