@@ -2,7 +2,7 @@
 
 Login an account to get more access to the API.
 
-- **🌏 URL**: `/login`
+- **🌏 URL**: `/login/`
 - ~~**📋 URL Parameters**: -~~
 - **🛤️ Method**: `POST`
 - **🔐 Auth required**: `NO`
@@ -26,7 +26,7 @@ Login an account to get more access to the API.
 ## 📥 Response(s)
 
 ### ❌ Error Response(s)
-- **❓ Condition**: *If the filed doesn't meet the data constraint (Validation Error).*
+- **❓ Condition**: *If a validation error occurred.*
   - **🔢 Code**: `400 BAD REQUEST`
   - **✉ Content Example**:
     ```json
@@ -48,7 +48,9 @@ Login an account to get more access to the API.
       "error": false,
       "message": "You've logged in successfully.",
       "data": {
-        "token": "93144b288eb1fdccbe46d6fc0f241a51766ecd3d"
+        "accessToken": "93144b288eb1fdccbe46d6fc0f241a51766ecd3d",
+        "refreshToken":
+        "cnd8suc9du8sfuiersfviuy987wp0okmkigt09sj"
       }
     }
     ```

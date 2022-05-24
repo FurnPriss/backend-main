@@ -2,7 +2,7 @@
 
 A brief explanation of the API feature or endpoint.
 
-- **🌏 URL**: `/api/sys-regis/`
+- **🌏 URL**: `/register/`
 - ~~**📋 URL Parameters**: -~~
 - **🛤️ Method**: `POST`
 - **🔐 Auth required**: `NO`
@@ -11,7 +11,7 @@ A brief explanation of the API feature or endpoint.
 ## 📤 Request(s)
 
 - **📋 Data Constraint**
-	> These variables should be passed as `plain string`
+	> These variables should be `plain strings`.
 	- name: `required`
 	- username: `required`, `min=6`
 	- email: `required`
@@ -35,17 +35,28 @@ A brief explanation of the API feature or endpoint.
 	- **✉ Content Example**:
 		```json
 		{
-			"status": 400,
-			"message": "There is an error related to the form. Please check carefully.",
+			"error": true,
+			"message": "There are one or more error field(s). Please check it carefully.",
+			"data": {
+				"confirmPassword": "validation error message or an array to list the error occurred"
+			}
 		}
 		```
-- **❓ Condition**: *If the email has been used.*
-	- **🔢 Code**: `500 NOT FOUND`
+- **❓ Condition**: *If the `email` is already used or the `username` is not available.*
+	- **🔢 Code**: `409 CONFLICT`
 	- **✉ Content Example**:
+      - **❓ Condition**: *If the `email` is already used*
 		```json
 		{
-			"status": 500,
-			"message": "Email has been used"
+			"error": true,
+			"message": "The email has been used. Please try another one or login instead."
+		}
+		```
+      - **❓ Condition**: *If the `username` is not available.*
+		```json
+		{
+			"error": true,
+			"message": "The username is not available. Please try another one or login instead."
 		}
 		```
 
