@@ -13,5 +13,3 @@ class TestRegister(APITestCase):
         # self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
         # self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    
