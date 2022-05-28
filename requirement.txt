@@ -1,14 +1,12 @@
 asgiref==3.5.2
 backports.zoneinfo==0.2.1
 Django==3.2.13
-<<<<<<< HEAD
 django-cors-headers==3.12.0
 djangorestframework==3.13.1
 mysqlclient==2.1.0
 passlib==1.7.4
 PyMySQL==1.0.2
 python-dotenv==0.20.0
-=======
 django-filter==21.1
 django-guardian==2.4.0
 djangorestframework==3.13.1
@@ -16,14 +14,10 @@ importlib-metadata==4.11.3
 Markdown==3.3.7
 Pygments==2.12.0
 PyYAML==6.0
->>>>>>> 61cc6201d71475b5d0e596a96216b53a9e23b961
 pytz==2022.1
 shortuuid==1.0.9
 sqlparse==0.4.2
 typing_extensions==4.2.0
-<<<<<<< HEAD
 uuid==1.30
-=======
 uritemplate==4.1.1
 zipp==3.8.0
->>>>>>> 61cc6201d71475b5d0e596a96216b53a9e23b961

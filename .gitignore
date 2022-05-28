@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-env
-.env 
-__pycache__/
-=======
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -169,4 +164,3 @@ cython_debug/
 
 # kubuntu directory setting
 .directory
->>>>>>> 61cc6201d71475b5d0e596a96216b53a9e23b961
