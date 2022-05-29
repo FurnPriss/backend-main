@@ -17,7 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from . import views
+
 urlpatterns = format_suffix_patterns([
+    path('', views.ApiRoot.as_view()),
     path('admin/', admin.site.urls),
     path('api/', include('dummy_opennotes.urls')),
     path('api/', include('register.urls', namespace='user')),
