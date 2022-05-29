@@ -19,6 +19,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = format_suffix_patterns([
     path('admin/', admin.site.urls),
+    path('api/', include('dummy_opennotes.urls')),
     path('api/', include('register.urls', namespace='user')),
     path('api/', include('forgetted_password.urls', namespace='forget')),
     path('api/', include('confirm_token.urls', namespace='verify'))
