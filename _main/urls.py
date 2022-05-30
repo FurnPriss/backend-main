@@ -25,5 +25,6 @@ urlpatterns = format_suffix_patterns([
     path('api/', include('dummy_opennotes.urls')),
     path('api/', include('register.urls', namespace='user')),
     path('api/', include('forgetted_password.urls', namespace='forget')),
-    path('api/', include('confirm_token.urls', namespace='verify'))
+    path('api/', include('confirm_token.urls', namespace='verify')),
+    path('api/', include('tokens.urls')),
 ])

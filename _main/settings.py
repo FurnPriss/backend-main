@@ -34,18 +34,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dummy_opennotes',
-    'register',
-    'forgetted_password',
-    'confirm_token',
-    'corsheaders',
     'rest_framework',
+    'confirm_token',
+    'dummy_opennotes',
+    'forgetted_password',
+    'register',
+    'tokens',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,9 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
 }
 
 ROOT_URLCONF = '_main.urls'
