@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ConfirmTokenConfig(AppConfig):
+class AccountsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'confirm_token'
+    name = 'accounts'

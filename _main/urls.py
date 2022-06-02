@@ -22,9 +22,7 @@ from . import views
 urlpatterns = format_suffix_patterns([
     path('', views.ApiRoot.as_view()),
     path('admin/', admin.site.urls),
-    path('api/', include('dummy_opennotes.urls')),
-    path('api/', include('register.urls', namespace='user')),
-    path('api/', include('forgetted_password.urls', namespace='forget')),
-    path('api/', include('confirm_token.urls', namespace='verify')),
+    path('api/', include('accounts.urls', namespace='user')),
+    path('api/', include('dummy_opennotes.urls'), namespace='dummy_opennotes'),
     path('api/', include('tokens.urls')),
-])
+]

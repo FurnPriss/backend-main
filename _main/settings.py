@@ -42,10 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'confirm_token',
-    'dummy_opennotes',
-    'forgetted_password',
-    'register',
+    'accounts.apps.AccountsConfig',
     'tokens',
 ]
 
@@ -69,6 +66,12 @@ REST_FRAMEWORK = {
 }
 
 ROOT_URLCONF = '_main.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        )
+    }
 
 TEMPLATES = [
     {
@@ -103,6 +106,8 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'accounts.UserModel'
+AUTH_CODE_MODEL = 'accounts.VerifyCodeModel'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
