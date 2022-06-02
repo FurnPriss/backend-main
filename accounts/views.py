@@ -1,8 +1,10 @@
 from rest_framework.views import APIView
-from .serializers import UserRegistration, UserModel, ResetPassword, VerifyCodeModel
+from django.shortcuts import get_object_or_404
+from .serializers import UserRegistration, UserModel, ResetPassword, VerifyCodeModel, CodeVerify
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from rest_framework import status
+from passlib.hash import sha256_crypt
 from dotenv import load_dotenv
 import shortuuid
 from datetime import *
@@ -36,7 +38,7 @@ class RegistrationViewAPI(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class VerifyCodeAPI(APIView):
+class GenerateCodeAPI(APIView):
     def __init__(self):
         self.reset = ResetPassword
 
@@ -54,7 +56,7 @@ class VerifyCodeAPI(APIView):
 
         retrive = self.reset(data=data)
         exist_email = UserModel.objects.filter(email=data["email"]).exists()
-        choice_email = UserModel.objects.filter(email=data["email"]).values("id", "email")
+        choice_email = get_object_or_404(UserModel, email=data["email"])
 
         if data["password"] != data["confirm_password"]:
             return Response({"message": "Please correct, password and confirm password must be same"},status=status.HTTP_404_NOT_FOUND)
@@ -62,8 +64,8 @@ class VerifyCodeAPI(APIView):
         if retrive.is_valid():
 
             if exist_email:
-                VerifyCodeModel.objects.create_code(user_id=choice_email[0]["id"], code=random)
-                send_mail(subject, msg, os.getenv("EMAIL"),[choice_email[0]["email"]], fail_silently=False)
+                VerifyCodeModel.objects.create_code(user_id=choice_email.id, code=random)
+                send_mail(subject, msg, os.getenv("EMAIL"),[choice_email.email], fail_silently=False)
                 response= Response({"message": "We sent email to you. Please check your inbox"}, status=status.HTTP_201_CREATED)
                 response.set_cookie(key="password", value=data["password"], httponly=False, expires=datetime.now() + timedelta(seconds=age), max_age=age)
                 return response
@@ -77,6 +79,31 @@ class VerifyCodeAPI(APIView):
         
         return Response(retrive.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class VerifyCodeAPI(APIView):
+    def __init__(self):
+        self.verify = CodeVerify
+
+    def post(self, request):
+        new_password = sha256_crypt.hash(request.COOKIES["password"])
+
+        data = {
+            "code" : request.data["code"]
+        }
+
+        check = VerifyCodeModel.objects.filter(code=data["code"]).exists()
+        userid_out = get_object_or_404(VerifyCodeModel, code=data["code"])
+        query = get_object_or_404(UserModel,id=userid_out.user_id)
+        parser = self.verify(data=data)
+
+        if parser.is_valid():
+            if check and query:
+                query.password = new_password
+                query.save()
+                return Response(parser.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response({"message": "Code is incorrect"}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response(parser.errors, status=status.HTTP_400_BAD_REQUEST)
 
         
         
