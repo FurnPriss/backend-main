@@ -13,6 +13,7 @@ import re, os
 load_dotenv(dotenv_path='./.env')
 # Create your views here.
 class RegistrationViewAPI(APIView):
+    serializer_class = UserRegistration
 
     def __init__(self):
         self.serializer = UserRegistration
@@ -39,6 +40,8 @@ class RegistrationViewAPI(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class GenerateCodeAPI(APIView):
+    serializer_class = ResetPassword
+    
     def __init__(self):
         self.reset = ResetPassword
 
@@ -80,6 +83,8 @@ class GenerateCodeAPI(APIView):
         return Response(retrive.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class VerifyCodeAPI(APIView):
+    serializer_class = CodeVerify
+    
     def __init__(self):
         self.verify = CodeVerify
 
@@ -104,6 +109,3 @@ class VerifyCodeAPI(APIView):
                 return Response({"message": "Code is incorrect"}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(parser.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        
-        

@@ -66,5 +66,3 @@ class GenerateCode(APITestCase):
         }
         request = self.client.post("/api/sys-reset-psw/", data)
         self.assertEqual(request.status_code, status.HTTP_404_NOT_FOUND)
-    
-    

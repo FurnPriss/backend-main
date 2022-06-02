@@ -53,4 +53,3 @@ class VerifyCodeManager(BaseUserManager):
         
         data = self.model(user_id=user_id, code=code, created=created)
         data.save()
-    
