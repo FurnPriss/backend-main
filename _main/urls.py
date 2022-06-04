@@ -24,5 +24,6 @@ urlpatterns = format_suffix_patterns([
     path('admin/', admin.site.urls),
     path('api/', include('accounts.urls', namespace='user')),
     path('api/', include('dummy_opennotes.urls')),
+    path('api/', include('endpointfor_AuthenticatedUser.urls')),
     path('api/', include('tokens.urls', namespace='tokens')),
 ])
