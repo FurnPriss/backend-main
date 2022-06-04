@@ -10,6 +10,7 @@ class ApiRoot(APIView):
             'token': '-----------',
             'token_obtain_pair': reverse('tokens:obtain_pair', request=request, format=format),
             'token_refresh': reverse('tokens:refresh', request=request, format=format),
+            'token_verify': reverse('tokens:verify', request=request, format=format),
             'user': '-----------',
             'user_register': reverse('user:register', request=request, format=format),
             'user_reset': reverse('user:reset', request=request, format=format),
