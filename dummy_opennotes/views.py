@@ -17,7 +17,7 @@ class DummyOpenNotesList(APIView, PageNumberPagination):
     queryset = DummyOpenNotes.objects.all()
 
     """
-    List all notes, or create a new notes
+    List all notes, or create a new notes. The paginator using API View.
     """
 
     def get(self, request, format=None):
