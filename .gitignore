@@ -159,8 +159,11 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# vscode settings
-.vscode
-
 # kubuntu directory setting
 .directory
+
+# output files, used for testing the curl output
+.output.json
+
+# vscode settings
+.vscode

@@ -1,4 +1,3 @@
-from turtle import update
 from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser, PermissionsMixin
@@ -6,7 +5,6 @@ from django.contrib.auth.models import (
 from django.db import models
 from rest_framework_simplejwt.tokens import RefreshToken
 from manager import UserManager, VerifyCodeManager
-import uuid
 
 # Create your models here.
 class UserModel(AbstractBaseUser, PermissionsMixin):
@@ -17,7 +15,8 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     
     objects = UserManager()
-
+    
+    REQUIRED_FIELDS = ['username']
     USERNAME_FIELD = 'email'
 
     def __str__(self):

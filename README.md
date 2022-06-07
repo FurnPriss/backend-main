@@ -46,3 +46,9 @@ python3 manage.py migrate
 ```bash
 python3 manage.py createsuperuser --email admin@example.com --username admin
 ```
+
+### 7. Formatting your code using autopep8
+This is used to follow pep 8 coding standards.
+```bash
+autopep8 --recursive --in-place --aggressive tokens
+```
