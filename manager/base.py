@@ -29,18 +29,18 @@ class UserManager(BaseUserManager):
         
         return data
     
-    # def update_password(self, id, new_password):
-    #     if id is None:
-    #         raise TypeError("Your ID not found to our database")
+    def update_password(self, id, new_password):
+        if id is None:
+            raise TypeError("Your ID not found to our database")
         
-    #     if new_password is None:
-    #         raise TypeError("New password must be filled")
+        if new_password is None:
+            raise TypeError("New password must be filled")
 
-    #     check = self.model.get(id=id)
-    #     check.password = new_password
-    #     check.save()
+        check = self.model()
+        check.password = new_password
+        check.save()
 
-    #     return check
+        return check
 
 class VerifyCodeManager(BaseUserManager):
     def create_code(self, user_id:Optional[str], code, created=None, updated=None):
