@@ -4,7 +4,7 @@ from .serializers import UserRegistration, UserModel, ResetPassword, VerifyCodeM
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from rest_framework import status
-from passlib.hash import sha256_crypt
+from django.contrib.auth.hashers import make_password
 from dotenv import load_dotenv
 import shortuuid
 from datetime import *
@@ -89,7 +89,7 @@ class VerifyCodeAPI(APIView):
         self.verify = CodeVerify
 
     def post(self, request):
-        new_password = sha256_crypt.hash(request.COOKIES["password"])
+        new_password = request.COOKIES["password"]
 
         data = {
             "code" : request.data["code"]
@@ -102,7 +102,7 @@ class VerifyCodeAPI(APIView):
 
         if parser.is_valid():
             if check and query:
-                query.password = new_password
+                query.password = make_password(new_password)
                 query.save()
                 return Response(parser.data, status=status.HTTP_201_CREATED)
             else:

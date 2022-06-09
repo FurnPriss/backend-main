@@ -7,8 +7,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, Toke
 from accounts.models import UserModel
 
 
-class CustomTokenObtainPairSerializer(
-        TokenObtainPairSerializer, serializers.ModelSerializer):
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer, serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255)
     password = serializers.CharField(min_length=8, max_length=255)
 
