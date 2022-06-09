@@ -2,7 +2,7 @@
 
 A brief explanation of the API feature or endpoint.
 
-- **🌏 URL**: `/api/sys-regis/`
+- **🌏 URL**: `/api/register/`
 - ~~**📋 URL Parameters**: -~~
 - **🛤️ Method**: `POST`
 - **🔐 Auth required**: `NO`
@@ -12,7 +12,6 @@ A brief explanation of the API feature or endpoint.
 
 - **📋 Data Constraint**
 	> These variables should be passed as `plain string`
-	- name: `required`
 	- username: `required`, `min=6`
 	- email: `required`
 	- password: `required`, `min=8`
@@ -20,7 +19,6 @@ A brief explanation of the API feature or endpoint.
 - **✉ Data Example**
 	```json
 	{
-		"name": "Ryuzaki Ramadansyah",
 		"username": "ryuzakir",
 		"email": "ryuzaki.ramadansyah@example.com",
 		"password": "abcd1234"
@@ -35,17 +33,27 @@ A brief explanation of the API feature or endpoint.
 	- **✉ Content Example**:
 		```json
 		{
-			"status": 400,
-			"message": "There is an error related to the form. Please check carefully.",
+			"username": [
+        		"This field may not be blank."
+    		],
 		}
 		```
-- **❓ Condition**: *If the email has been used.*
-	- **🔢 Code**: `500 NOT FOUND`
+- **❓ Condition**: *If email didn't match with regex*
+	- **🔢 Code**: `400 BAD REQUEST`
 	- **✉ Content Example**:
 		```json
 		{
-			"status": 500,
-			"message": "Email has been used"
+			"message": "Email must have a pattern '.com'.",
+		}
+		```
+- **❓ Condition**: *If the email has been used.*
+	- **🔢 Code**: `400 BAD REQUEST`
+	- **✉ Content Example**:
+		```json
+		{
+			"email": [
+				"user model with this email already exists."
+			]
 		}
 		```
 
@@ -55,7 +63,6 @@ A brief explanation of the API feature or endpoint.
 	- **✉ Content Example**:
 		```json
 		{
-			"status": 201,
 			"message": "You've created a new account.",
 		}
 		```

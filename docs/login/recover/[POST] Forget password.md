@@ -2,7 +2,7 @@
 
 An endpoint to recover user account by entering the username or email of the user.
 
-- **🌏 URL**: `/api/sys-reset-psw/`
+- **🌏 URL**: `/api/reset-psw/`
 - ~~**📋 URL Parameters**: -~~
 - **🛤️ Method**: `POST`
 - **🔐 Auth required**: `NO`
@@ -21,7 +21,7 @@ An endpoint to recover user account by entering the username or email of the use
   {
     "email": "ryuzakir@gmail.com",
     "password": "djangorest",
-    "confirm": "djangorest"
+    "confirm_password": "djangorest"
   }
   ```
 
@@ -33,7 +33,6 @@ An endpoint to recover user account by entering the username or email of the use
   - **✉ Content Example**:
     ```json
     {
-      "status": 400,
       "message": "Password must be same with confirm field" or "Please complete field on form",
     }
     ```
@@ -46,8 +45,17 @@ An endpoint to recover user account by entering the username or email of the use
   - **✉ Content Example**:
     ```json
     {
-      "status": 404,
       "message": "Email isn't available on our database",
+    }
+    ```
+
+### ❌ Error Response(s)
+- **❓ Condition**: *error from django*
+  - **🔢 Code**: `404 NOT FOUND`
+  - **✉ Content Example**:
+    ```json
+    {
+      "detail": "Email isn't available on our database",
     }
     ```
 
@@ -57,7 +65,6 @@ An endpoint to recover user account by entering the username or email of the use
 	- **✉ Content Example**:
 		```json
 		{
-			"status": 201,
 			"message": "We sent email to you. Please check your inbox",
 		}
 		```
